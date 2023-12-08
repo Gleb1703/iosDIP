@@ -7,19 +7,20 @@
 
 import UIKit
 
-struct PostModel {
+struct PostModel: Identifiable {
     
+    var id = UUID()
     var author: String
     var description: String
     var image: UIImage
     var likes: Int
     var views: Int
-    
+    var liked: Bool = false
 }
 
 extension PostModel {
     
-    static func make() -> [PostModel] {
+    static var own: [PostModel] =
         [
             PostModel(
                 author: "Apple Inc.",
@@ -50,5 +51,34 @@ extension PostModel {
                 views: 514
                      )
         ]
+    
+    static var others: [PostModel] = [
+        PostModel(
+            author: "Nick",
+            description: "In the forest deep and green, Where sunlight rarely has been seen, Leaves whisper tales of old,Under canopies of emerald gold. Roots entwine like lovers' hands,In this silent, sacred land, Each tree a sentinel of time, In this tranquil, verdant clime.",
+            image: UIImage(named: "04") ?? UIImage(),
+            likes: 125,
+            views: 5345
+        ),
+        PostModel(
+            author: "Nick",
+            description: "Peaks that kiss the azure sky, Where eagles dare and spirits fly, Cloaked in snow, so pure, so bright, Bathed in the moon's soft silver light. Granite giants, ancient, wise, Standing tall where the falcon flies, In their shadows, secrets dwell, In each crevice, each rocky dell.",
+            image: UIImage(named: "03") ?? UIImage(),
+            likes: 3525,
+            views: 52123
+        ),
+        PostModel(
+            author: "William",
+            description: "Endless blue, horizon wide, Where dreams sail and seagulls glide, Waves whisper to the sandy shore, In a rhythm of ancient lore. The ocean's heart, deep and vast, In each tide, echoes of the past, Its depths a mystery untold, Beneath the surface, wonders bold.",
+            image: UIImage(named: "10") ?? UIImage(),
+            likes: 233,
+            views: 1234
+        )
+    ]
+    
+    static func all() -> [PostModel] {
+        var posts: [PostModel] = PostModel.others
+        posts.append(contentsOf: PostModel.own)
+        return posts
     }
 }
